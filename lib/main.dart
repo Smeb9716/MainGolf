@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:screen_main/category_detail.dart';
@@ -53,32 +52,30 @@ class _MyHomePageState extends State<MyHomePage> {
           child: IconButton(
             icon: Image.asset('assets/images/ic_menu.png'),
             onPressed: (){
-              if (kDebugMode) {
-                print('onClick iconMenu');
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const TableScore()));
-              }
             },
           ),
         ),
         leadingWidth: 50,
-        title: const Text('COURES', style: TextStyle(color: Color(0xff414955),  fontFamily: 'SVN-Gilroy', fontWeight: FontWeight.w700, fontSize: 16)),
+        title: const Text('COURSES', style: TextStyle(color: Color(0xff414955),  fontFamily: 'SVN-Gilroy', fontWeight: FontWeight.w700, fontSize: 16)),
         titleSpacing: 0,
       ),
       body: RefreshIndicator(
         onRefresh: () async{
-          print('onRefresh');
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const TableScore()));
         },
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
-          child: Container(
-            // height: MediaQuery.of(context).size.height,
-            margin: const EdgeInsets.only(left: 20, right: 20),
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                _searchBar(),
+                const SizedBox(height: 25),
                 const FavoritesCourses(),
+                const SizedBox(height: 20),
                 const RecommendedCourses(),
+                const SizedBox(height: 20),
                 const NearestCourses()
               ],
             ),
@@ -90,9 +87,10 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 _searchBar() {
-  return Container(
-    margin: const EdgeInsets.only(bottom: 32),
+  return Padding(
+    padding: EdgeInsets.symmetric(horizontal: 20),
     child: TextField(
+      style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 15, fontFamily: 'SVN-Gilroy'),
       autofocus: false,
       onChanged: (searchText) {
         searchText = searchText.toLowerCase();
@@ -119,14 +117,12 @@ class FavoritesCourses extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-     return Container(
-       child: Column(
-         crossAxisAlignment: CrossAxisAlignment.start,
-         children: const [
-            CommonHeader(categoryCoures: 'Favorites Courses'),
-            CommonBody(),
-         ],
-       ),
+     return Column(
+       crossAxisAlignment: CrossAxisAlignment.start,
+       children: const [
+          CommonHeader(categoryCourses: 'Favorites Courses'),
+          CommonBody(),
+       ],
      );
   }
 }
@@ -136,15 +132,12 @@ class RecommendedCourses extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          CommonHeader(categoryCoures: 'Recommended Courses'),
-          CommonBody(),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: const [
+        CommonHeader(categoryCourses: 'Recommended Courses'),
+        CommonBody(),
+      ],
     );
   }
 }
@@ -154,43 +147,43 @@ class NearestCourses extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          CommonHeader(categoryCoures: 'Nearest Courses'),
-          CommonBody(),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: const [
+        CommonHeader(categoryCourses: 'Nearest Courses'),
+        CommonBody(),
+      ],
     );
   }
 }
 
 class CommonHeader extends StatelessWidget{
-  const CommonHeader({super.key, required this.categoryCoures});
+  const CommonHeader({super.key, required this.categoryCourses});
 
-  final String categoryCoures;
+  final String categoryCourses;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text(categoryCoures, style: const TextStyle(color: Color(0xff414955), fontSize: 18, fontWeight: FontWeight.w700, fontFamily: 'SVN-Gilroy')),
-        const Spacer(),
-        TextButton(
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const CategoryDetail()));
-          },
-          child: Row(
-            children: const [
-              Text('View All', style: TextStyle(color: Color(0xff2DBA63), fontSize: 14, fontWeight: FontWeight.w600, fontFamily: 'SVN-Gilroy')),
-              SizedBox(width: 8),
-              Icon(Icons.arrow_forward_ios_rounded, size: 14, color: Color(0xff2DBA63)),
-            ],
-          ),
-        )
-      ],
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
+        children: [
+          Text(categoryCourses, style: const TextStyle(color: Color(0xff414955), fontSize: 18, fontWeight: FontWeight.w700, fontFamily: 'SVN-Gilroy')),
+          const Spacer(),
+          TextButton(
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const CategoryDetail()));
+            },
+            child: Row(
+              children: const [
+                Text('View All', style: TextStyle(color: Color(0xff2DBA63), fontSize: 14, fontWeight: FontWeight.w600, fontFamily: 'SVN-Gilroy')),
+                SizedBox(width: 3),
+                Icon(Icons.arrow_forward_ios_rounded, size: 14, color: Color(0xff2DBA63)),
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }
@@ -200,56 +193,59 @@ class CommonBody extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-      return SizedBox(
-        height: 266,
-        child: ListView.builder(
-            physics: const BouncingScrollPhysics(),
-            scrollDirection: Axis.horizontal,
-            itemCount: 3,
-            itemBuilder: (BuildContext context, int index){
-              return GestureDetector(
-                onTap: () => {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const CoursesDetailScreen()))
-              },
-                child: Container(
-                  height: 224,
-                  width: 266,
-                  margin: const EdgeInsets.only(right: 16),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: const Color(0xffEEF5FF),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      ClipRRect(
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20),
-                          ),
-                          child: Image.network('https://picsum.photos/250?image=9', width: 266, height: 170, fit: BoxFit.fill,)
-                      ),
-                      const Padding(
-                          padding: EdgeInsets.only(left: 16, top: 20),
-                          child: Text('Hilltop Valley Golf Club ', style: TextStyle(fontSize: 15, fontFamily: 'SVN-Gilroy', fontWeight: FontWeight.w700)),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 16, top: 9),
-                        child:  Row(
-                          children: [
-                            Image.asset('assets/images/ic_golf_course.png', width: 14, height: 14,),
-                            const SizedBox(width: 8),
-                            const Text('27 holes', style: TextStyle(color: Color(0xff8A8E9B), fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'SVN-Gilroy')),
-                          ],
+      return Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        child: SizedBox(
+          height: 266,
+          child: ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              itemCount: 3,
+              itemBuilder: (BuildContext context, int index){
+                return GestureDetector(
+                  onTap: () => {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const CoursesDetailScreen()))
+                },
+                  child: Container(
+                    height: 224,
+                    width: 266,
+                    margin: const EdgeInsets.only(right: 16),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: const Color(0xffEEF5FF),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ClipRRect(
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20),
+                            ),
+                            child: Image.network('https://picsum.photos/250?image=9', width: 266, height: 170, fit: BoxFit.fill,)
                         ),
-                      ),
-
-                    ],
+                        const Padding(
+                            padding: EdgeInsets.only(left: 16, top: 20),
+                            child: Text('Hilltop Valley Golf Club ', style: TextStyle(fontSize: 15, fontFamily: 'SVN-Gilroy', fontWeight: FontWeight.w700)),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 16, top: 9),
+                          child:  Row(
+                            children: [
+                              Image.asset('assets/images/ic_golf_course.png', width: 14, height: 14,),
+                              const SizedBox(width: 8),
+                              const Text('27 holes', style: TextStyle(color: Color(0xff8A8E9B), fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'SVN-Gilroy')),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              );
-            }),
+                );
+              }),
+        ),
       );
   }
 
