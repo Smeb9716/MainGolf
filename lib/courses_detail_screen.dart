@@ -318,6 +318,7 @@ class _CoursesDetailScreenState extends State<CoursesDetailScreen> {
         leadingWidth: 45,
       ),
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: Padding(
           padding: paddingScreen,
           child: Column(
