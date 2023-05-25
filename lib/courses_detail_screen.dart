@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class CoursesDetailScreen extends StatefulWidget {
@@ -294,12 +295,28 @@ class _CoursesDetailScreenState extends State<CoursesDetailScreen> {
                 setState(() {});
               },
               isSelected: formatPlayIndex == 1,
-              title: 'Math-Play'),
+              title: 'Match-Play'),
         ),
       ],
     );
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        centerTitle: false,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 20),
+          child: IconButton(
+            icon: Image.asset('assets/images/ic_back.png'),
+            onPressed: (){
+              if (kDebugMode) {
+                Navigator.pop(context);
+              }
+            },
+          ),
+        ),
+        leadingWidth: 45,
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: paddingScreen,
@@ -362,23 +379,25 @@ class _CoursesDetailScreenState extends State<CoursesDetailScreen> {
       required VoidCallback onTap}) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color:
-                isSelected ? const Color(0xFF2DBA63) : const Color(0xFFB0EFC8)),
-        padding: const EdgeInsets.symmetric(
-          vertical: 5,
-          horizontal: 32,
-        ),
-        child: Text(
-          title,
-          style: TextStyle(
-              color: isSelected
-                  ? const Color(0xFFFFFFFF)
-                  : const Color(0xFF2DBA63),
-              fontWeight: FontWeight.w700,
-              fontSize: 14),
+      child: Center(
+        child: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              color:
+                  isSelected ? const Color(0xFF2DBA63) : const Color(0xFFB0EFC8)),
+          padding: const EdgeInsets.symmetric(
+            vertical: 5,
+            horizontal: 32,
+          ),
+          child: Text(
+            title,
+            style: TextStyle(
+                color: isSelected
+                    ? const Color(0xFFFFFFFF)
+                    : const Color(0xFF2DBA63),
+                fontWeight: FontWeight.w700,
+                fontSize: 14),
+          ),
         ),
       ),
     );
@@ -402,7 +421,7 @@ class _CoursesDetailScreenState extends State<CoursesDetailScreen> {
                       width: 6,
                       color: const Color(0xFF2DBA63),
                     )
-                  : Border.all(width: 1, color: Colors.black),
+                  : Border.all(width: 1, color: Color(0xffD9D9D9)),
             ),
           ),
           const SizedBox(
@@ -413,7 +432,8 @@ class _CoursesDetailScreenState extends State<CoursesDetailScreen> {
             style: const TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
-                color: Color(0xFF414955)),
+                color: Color(0xFF414955),
+                fontFamily: 'SVN-Gilroy'),
           )
         ],
       ),
