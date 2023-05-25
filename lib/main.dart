@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:screen_main/category_detail.dart';
 import 'package:screen_main/table_score.dart';
 
+import 'courses_detail_screen.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -207,8 +209,8 @@ class CommonBody extends StatelessWidget{
             itemBuilder: (BuildContext context, int index){
               return GestureDetector(
                 onTap: () => {
-                  debugPrint('$index')
-                },
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const CoursesDetailScreen()))
+              },
                 child: Container(
                   height: 224,
                   width: 266,
