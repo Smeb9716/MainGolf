@@ -228,7 +228,7 @@ class CommonBody extends StatelessWidget{
                       ),
                       const Padding(
                           padding: EdgeInsets.only(left: 16, top: 20),
-                          child: Text('Hilltop Valley Golf Club', style: TextStyle(fontSize: 15, fontFamily: 'SVN-Gilroy', fontWeight: FontWeight.w700)),
+                          child: Text('Hilltop Valley Golf Club ', style: TextStyle(fontSize: 15, fontFamily: 'SVN-Gilroy', fontWeight: FontWeight.w700)),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 16, top: 9),
