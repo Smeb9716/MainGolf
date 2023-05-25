@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:screen_main/category_detail.dart';
+import 'package:screen_main/table_score.dart';
 
 void main() {
   runApp(const MyApp());
@@ -52,6 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
             onPressed: (){
               if (kDebugMode) {
                 print('onClick iconMenu');
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const TableScore()));
               }
             },
           ),
