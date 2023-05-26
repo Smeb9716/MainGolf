@@ -158,7 +158,7 @@ class NearestCourses extends StatelessWidget{
 }
 
 class CommonHeader extends StatelessWidget{
-  const CommonHeader({super.key, required this.categoryCourses});
+  const CommonHeader({super.key,  this.categoryCourses = ''});
 
   final String categoryCourses;
 
