@@ -7,14 +7,7 @@ class CategoryDetail extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-      theme: ThemeData(
-          primaryColor: Colors.white,
-          scaffoldBackgroundColor: Colors.white
-      ),
-      debugShowCheckedModeBanner: false,
-      home: ListCoursesDetail(),
-    );
+    return  const ListCoursesDetail();
   }
 }
 
@@ -48,16 +41,16 @@ class ListCoursesDetail extends StatelessWidget{
          title: const Text('COURES', style: TextStyle(color: Color(0xff414955),  fontFamily: 'SVN-Gilroy', fontWeight: FontWeight.w700, fontSize: 16)),
          titleSpacing: 0,
        ),
-       body: SafeArea(
-         child: Container(
-           margin: const EdgeInsets.only(left: 20, right: 20),
+       body: SingleChildScrollView(
+         child: Padding(
+           padding: EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
            child: Column(
              crossAxisAlignment: CrossAxisAlignment.start,
              children: [
                _searchBar(),
-               Padding(
-                   padding: EdgeInsets.only(bottom: 10),
-                   child: Text('Favorites Courses', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, fontFamily: 'SVN-Gilroy'))),
+               const SizedBox(height: 30),
+               const Text('Favorites Courses', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, fontFamily: 'SVN-Gilroy')),
+               const SizedBox(height: 10),
                ListItemCourses()
              ],
            ),
@@ -73,17 +66,17 @@ class ListItemCourses extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height - 220,
       child: GridView.count(
-        physics: BouncingScrollPhysics(),
+        physics: NeverScrollableScrollPhysics(),
         crossAxisCount: 2 ,
+        shrinkWrap: true,
         children: List.generate(50,(index){
           return GestureDetector(
             onTap: () => {
               debugPrint('$index')
             },
             child: Container(
-              margin: EdgeInsets.all(5),
+              margin: EdgeInsets.only(right: 7, bottom: 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 color: const Color(0xffEEF5FF),
@@ -125,26 +118,23 @@ class ListItemCourses extends StatelessWidget{
 }
 
 _searchBar() {
-  return Container(
-    margin: const EdgeInsets.only(bottom: 32),
-    child: TextField(
-      autofocus: false,
-      onChanged: (searchText) {
-        searchText = searchText.toLowerCase();
-      },
-      decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25.0),
-            borderSide: const BorderSide(color: Color(0xffD4D9E1)),
-          ),
-          prefixIcon: const Icon(Icons.search, size: 35, color: Color(0xff414955),),
-          hintText: 'Search coures',
-          hintStyle: const TextStyle(color: Color(0xff8A8E9B), fontWeight: FontWeight.w500, fontSize: 15, fontFamily: 'SVN-Gilroy'),
-          focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: Color(0xff2DBA63)),
-              borderRadius: BorderRadius.circular(25.0)
-          )
-      ),
+  return TextField(
+    autofocus: false,
+    onChanged: (searchText) {
+      searchText = searchText.toLowerCase();
+    },
+    decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(25.0),
+          borderSide: const BorderSide(color: Color(0xffD4D9E1)),
+        ),
+        prefixIcon: const Icon(Icons.search, size: 35, color: Color(0xff414955),),
+        hintText: 'Search coures',
+        hintStyle: const TextStyle(color: Color(0xff8A8E9B), fontWeight: FontWeight.w500, fontSize: 15, fontFamily: 'SVN-Gilroy'),
+        focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Color(0xff2DBA63)),
+            borderRadius: BorderRadius.circular(25.0)
+        )
     ),
   );
 }
