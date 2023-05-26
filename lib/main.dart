@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:screen_main/category_detail.dart';
 import 'package:screen_main/table_score.dart';
 
@@ -34,55 +35,147 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final _advancedDrawerController = AdvancedDrawerController();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: Colors.white,
-          statusBarIconBrightness: Brightness.dark,
-          statusBarBrightness: Brightness.light
-        ),
-        backgroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: false,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 10),
-          child: IconButton(
-            icon: Image.asset('assets/images/ic_menu.png'),
-            onPressed: (){
-            },
+    return AdvancedDrawer(
+      backdrop: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [Colors.white, Colors.white],
           ),
         ),
-        leadingWidth: 50,
-        title: const Text('COURSES', style: TextStyle(color: Color(0xff414955),  fontFamily: 'SVN-Gilroy', fontWeight: FontWeight.w700, fontSize: 16)),
-        titleSpacing: 0,
       ),
-      body: RefreshIndicator(
-        onRefresh: () async{
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const TableScore()));
-        },
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
+      controller: _advancedDrawerController,
+      animationCurve: Curves.easeInOut,
+      animationDuration: const Duration(milliseconds: 300),
+      animateChildDecoration: true,
+      rtlOpening: false,
+      openScale: 1,
+      openRatio: 0.65,
+      disabledGestures: false,
+      childDecoration: const BoxDecoration(
+        // NOTICE: Uncomment if you want to add shadow behind the page.
+        // Keep in mind that it may cause animation jerks.
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 3.0,
+          ),
+        ],
+        // borderRadius: const BorderRadius.all(Radius.circular(25)),
+      ),
+      drawer: SafeArea(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          color: Colors.white,
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.only(left: 24, top: 20, bottom: 24, right: 24),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-               _searchBar(),
-                const SizedBox(height: 25),
-                const FavoritesCourses(),
-                const SizedBox(height: 20),
-                const RecommendedCourses(),
-                const SizedBox(height: 20),
-                const NearestCourses()
+                Center(
+                    child: Image.asset('assets/images/ic_golf_score_drawer.png', width: 180, height: 51,)
+                ),
+                const SizedBox(height: 30),
+                GestureDetector(
+                  onTap: (){
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset('assets/images/ic_account.png', height: 30, width: 30,),
+                      const SizedBox(width: 12),
+                      const Text('Account', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, fontFamily: 'SVN-Gilroy', color: Color(0xff414B5B)))
+                    ],
+                  ),
+                ),
+                SizedBox(height: 24),
+                GestureDetector(
+                  onTap: (){
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset('assets/images/ic_change_password.png', height: 30, width: 30,),
+                      const SizedBox(width: 12),
+                      const Text('Change password', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, fontFamily: 'SVN-Gilroy', color: Color(0xff414B5B)))
+                    ],
+                  ),
+                ),
+                const Spacer(),
+                GestureDetector(
+                    onTap: (){
+                    },
+                    child: Image.asset('assets/images/ic_logout.png', width: 117, height: 43,)
+                )
               ],
             ),
-          ),
+          )
+          
         ),
-      )
+      ),
+      child: Scaffold(
+        appBar: AppBar(
+          systemOverlayStyle: const SystemUiOverlayStyle(
+            statusBarColor: Colors.white,
+            statusBarIconBrightness: Brightness.dark,
+            statusBarBrightness: Brightness.light
+          ),
+          backgroundColor: Colors.white,
+          elevation: 0,
+          centerTitle: false,
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: Builder(
+              builder: (context) =>
+               IconButton(
+                icon: Image.asset('assets/images/ic_menu.png'),
+                onPressed: (){
+                  // Scaffold.of(context).openDrawer();
+                  _handleMenuButtonPressed();
+                },
+              ),
+            ),
+          ),
+          leadingWidth: 50,
+          title: const Text('COURSES', style: TextStyle(color: Color(0xff414955),  fontFamily: 'SVN-Gilroy', fontWeight: FontWeight.w700, fontSize: 16)),
+          titleSpacing: 0,
+        ),
+        body: RefreshIndicator(
+          onRefresh: () async{
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const TableScore()));
+          },
+          child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                 _searchBar(),
+                  const SizedBox(height: 25),
+                  const FavoritesCourses(),
+                  const SizedBox(height: 20),
+                  const RecommendedCourses(),
+                  const SizedBox(height: 20),
+                  const NearestCourses()
+                ],
+              ),
+            ),
+          ),
+        )
+      ),
     );
+  }
+
+  void _handleMenuButtonPressed() {
+    // NOTICE: Manage Advanced Drawer state through the Controller.
+    // _advancedDrawerController.value = AdvancedDrawerValue.visible();
+    _advancedDrawerController.showDrawer();
   }
 }
 
@@ -165,7 +258,7 @@ class CommonHeader extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
         children: [
           Text(categoryCourses, style: const TextStyle(color: Color(0xff414955), fontSize: 18, fontWeight: FontWeight.w700, fontFamily: 'SVN-Gilroy')),
@@ -194,7 +287,7 @@ class CommonBody extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
       return Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: SizedBox(
           height: 266,
           child: ListView.builder(
@@ -248,7 +341,6 @@ class CommonBody extends StatelessWidget{
         ),
       );
   }
-
 }
 
 
