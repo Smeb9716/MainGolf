@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
         // borderRadius: const BorderRadius.all(Radius.circular(25)),
       ),
-      drawer: const CustomNavigationDrawer(),
+      drawer: CustomNavigationDrawer(advancedDrawerController: _advancedDrawerController),
       child: Scaffold(
         appBar: AppBar(
           systemOverlayStyle: const SystemUiOverlayStyle(
@@ -130,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // NOTICE: Manage Advanced Drawer state through the Controller.
     // _advancedDrawerController.value = AdvancedDrawerValue.visible();
     _advancedDrawerController.showDrawer();
-  }
+   }
 }
 
 _searchBar() {
@@ -298,36 +298,35 @@ class CommonBody extends StatelessWidget{
 }
 
 class CustomNavigationDrawer extends StatelessWidget{
-  const CustomNavigationDrawer({super.key});
+   const CustomNavigationDrawer({super.key, required this.advancedDrawerController});
+   final AdvancedDrawerController advancedDrawerController;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-          // height: MediaQuery.of(context).size.height,
           color: Colors.white,
           child: Padding(
-            padding: const EdgeInsets.only(left: 24, top: 20, bottom: 24, right: 24),
+            padding: const EdgeInsets.only(left: 24, top: 25, bottom: 24, right: 24),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Center(
-                    child: Image.asset('assets/images/ic_golf_score_drawer.png', width: 180, height: 51,)
-                ),
-                const SizedBox(height: 30),
+                Image.asset('assets/images/ic_golf_score_drawer.png', width: 180, height: 51),
+                const SizedBox(height: 33),
                 GestureDetector(
                   onTap: (){
                     Navigator.push(context, MaterialPageRoute(builder: (context) => AccountScreen()));
+                    advancedDrawerController.hideDrawer();
                   },
                   child: Row(
                     children: [
-                      Image.asset('assets/images/ic_account.png', height: 30, width: 30,),
+                      Image.asset('assets/images/ic_account.png', height: 30, width: 30),
                       const SizedBox(width: 12),
                       const Text('Account', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, fontFamily: 'SVN-Gilroy', color: Color(0xff414B5B)))
                     ],
                   ),
                 ),
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
                 GestureDetector(
                   onTap: (){
                   },
@@ -341,9 +340,27 @@ class CustomNavigationDrawer extends StatelessWidget{
                 ),
                 const Spacer(),
                 GestureDetector(
-                    onTap: (){
-                    },
-                    child: Image.asset('assets/images/ic_logout.png', width: 117, height: 43,)
+                    onTap: (){},
+                    child: Container(
+                      height: 43,
+                      width: 117,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(28.5),
+                        gradient: const LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [Color(0xff3DE178), Color(0xff2DBA63)],
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          const SizedBox(width: 9),
+                          Image.asset('assets/images/ic_logout.png', width: 26, height: 26),
+                          const SizedBox(width: 9),
+                          const Text('Log Out', style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w400, fontFamily: 'SVN-Gilroy'))
+                        ],
+                      ),
+                    ),
                 )
               ],
             ),
