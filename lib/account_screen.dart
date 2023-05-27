@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 class AccountScreen extends StatelessWidget{
   AccountScreen({super.key});
-  final TextEditingController _controller = TextEditingController();
+  final TextEditingController _controllerFirstName = TextEditingController();
+  final TextEditingController _controllerLastName = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    _controller.text = 'Wayne';
+    _controllerFirstName.text = 'Anh';
+    _controllerLastName.text = 'Nguyen Van';
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Column(
@@ -57,7 +59,7 @@ class AccountScreen extends StatelessWidget{
                         ),
                         const SizedBox(height: 16),
                         TextField(
-                          controller: _controller,
+                          controller: _controllerFirstName,
                           style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16, fontFamily: 'SVN-Gilroy', color: Color(0xff414B5B)),
                           autofocus: false,
                           onChanged: (searchText) {
@@ -76,7 +78,7 @@ class AccountScreen extends StatelessWidget{
                         ),
                         const SizedBox(height: 16),
                         TextField(
-                          controller: _controller,
+                          controller: _controllerLastName,
                           style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16, fontFamily: 'SVN-Gilroy', color: Color(0xff414B5B)),
                           autofocus: false,
                           onChanged: (searchText) {
