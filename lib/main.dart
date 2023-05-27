@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
+import 'package:screen_main/account_screen.dart';
 import 'package:screen_main/category_detail.dart';
 import 'package:screen_main/table_score.dart';
 
@@ -70,54 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
         // borderRadius: const BorderRadius.all(Radius.circular(25)),
       ),
-      drawer: SafeArea(
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          color: Colors.white,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 24, top: 20, bottom: 24, right: 24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Center(
-                    child: Image.asset('assets/images/ic_golf_score_drawer.png', width: 180, height: 51,)
-                ),
-                const SizedBox(height: 30),
-                GestureDetector(
-                  onTap: (){
-                  },
-                  child: Row(
-                    children: [
-                      Image.asset('assets/images/ic_account.png', height: 30, width: 30,),
-                      const SizedBox(width: 12),
-                      const Text('Account', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, fontFamily: 'SVN-Gilroy', color: Color(0xff414B5B)))
-                    ],
-                  ),
-                ),
-                SizedBox(height: 24),
-                GestureDetector(
-                  onTap: (){
-                  },
-                  child: Row(
-                    children: [
-                      Image.asset('assets/images/ic_change_password.png', height: 30, width: 30,),
-                      const SizedBox(width: 12),
-                      const Text('Change password', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, fontFamily: 'SVN-Gilroy', color: Color(0xff414B5B)))
-                    ],
-                  ),
-                ),
-                const Spacer(),
-                GestureDetector(
-                    onTap: (){
-                    },
-                    child: Image.asset('assets/images/ic_logout.png', width: 117, height: 43,)
-                )
-              ],
-            ),
-          )
-          
-        ),
-      ),
+      drawer: const CustomNavigationDrawer(),
       child: Scaffold(
         appBar: AppBar(
           systemOverlayStyle: const SystemUiOverlayStyle(
@@ -341,6 +295,63 @@ class CommonBody extends StatelessWidget{
         ),
       );
   }
+}
+
+class CustomNavigationDrawer extends StatelessWidget{
+  const CustomNavigationDrawer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Container(
+          // height: MediaQuery.of(context).size.height,
+          color: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 24, top: 20, bottom: 24, right: 24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                    child: Image.asset('assets/images/ic_golf_score_drawer.png', width: 180, height: 51,)
+                ),
+                const SizedBox(height: 30),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => AccountScreen()));
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset('assets/images/ic_account.png', height: 30, width: 30,),
+                      const SizedBox(width: 12),
+                      const Text('Account', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, fontFamily: 'SVN-Gilroy', color: Color(0xff414B5B)))
+                    ],
+                  ),
+                ),
+                SizedBox(height: 24),
+                GestureDetector(
+                  onTap: (){
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset('assets/images/ic_change_password.png', height: 30, width: 30,),
+                      const SizedBox(width: 12),
+                      const Text('Change password', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, fontFamily: 'SVN-Gilroy', color: Color(0xff414B5B)))
+                    ],
+                  ),
+                ),
+                const Spacer(),
+                GestureDetector(
+                    onTap: (){
+                    },
+                    child: Image.asset('assets/images/ic_logout.png', width: 117, height: 43,)
+                )
+              ],
+            ),
+          )
+      ),
+    );
+  }
+
 }
 
 
