@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
-import 'package:screen_main/account_screen.dart';
 import 'package:screen_main/category_detail.dart';
 import 'package:screen_main/table_score.dart';
 
+import 'account_screen.dart';
 import 'courses_detail_screen.dart';
 
 void main() {
