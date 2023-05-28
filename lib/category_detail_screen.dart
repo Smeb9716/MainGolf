@@ -82,9 +82,8 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
       ),
     );
   }
-}
 
-Widget itemCourses({required String urlImage, required String titleCourses, required int countHoles, required int index}){
+  Widget itemCourses({required String urlImage, required String titleCourses, required int countHoles, required int index}){
     return GestureDetector(
       onTap: () => {
         debugPrint('$index')
@@ -106,7 +105,7 @@ Widget itemCourses({required String urlImage, required String titleCourses, requ
                 ),
                 child: Image.network(urlImage, width: 200, height: 88, fit: BoxFit.fill,)
             ),
-             Padding(
+            Padding(
               padding: const EdgeInsets.only(left: 9, top: 15, right: 10),
               child: Text(titleCourses, style: const TextStyle(fontSize: 14, fontFamily: 'SVN-Gilroy', fontWeight: FontWeight.w600), maxLines: 2, overflow: TextOverflow.ellipsis),
             ),
@@ -124,4 +123,5 @@ Widget itemCourses({required String urlImage, required String titleCourses, requ
         ),
       ),
     );
+  }
 }

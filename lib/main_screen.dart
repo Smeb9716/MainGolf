@@ -212,95 +212,95 @@ class _MainScreenState extends State<MainScreen> {
         ),
       );
   }
-}
 
-Widget baseItemCategory({required String titleCategory, required BuildContext buildContext}){
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      baseHeaderCategory(title: titleCategory, context: buildContext),
-      baseListCategory()
-    ],
-  );
-}
-
-Widget baseHeaderCategory({required String title, required BuildContext context}){
-  return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 20),
-    child: Row(
+  Widget baseItemCategory({required String titleCategory, required BuildContext buildContext}){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: const TextStyle(color: Color(0xff414955), fontSize: 18, fontWeight: FontWeight.w700, fontFamily: 'SVN-Gilroy')),
-        const Spacer(),
-        TextButton(
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const CategoryDetailScreen()));
-          },
-          child: Row(
-            children: const [
-              Text('View All', style: TextStyle(color: Color(0xff2DBA63), fontSize: 14, fontWeight: FontWeight.w600, fontFamily: 'SVN-Gilroy')),
-              SizedBox(width: 3),
-              Icon(Icons.arrow_forward_ios_rounded, size: 14, color: Color(0xff2DBA63)),
-            ],
-          ),
-        )
+        baseHeaderCategory(title: titleCategory, context: buildContext),
+        baseListCategory()
       ],
-    ),
-  );
-}
+    );
+  }
 
-Widget baseListCategory(){
-  return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 20),
-    child: SizedBox(
-      height: 266,
-      child: ListView.builder(
-          physics: const BouncingScrollPhysics(),
-          scrollDirection: Axis.horizontal,
-          shrinkWrap: true,
-          itemCount: 3,
-          itemBuilder: (BuildContext context, int index){
-            return GestureDetector(
-              onTap: () => {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const CoursesDetailScreen()))
-              },
-              child: Container(
-                height: 224,
-                width: 266,
-                margin: const EdgeInsets.only(right: 16),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: const Color(0xffEEF5FF),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    ClipRRect(
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                        ),
-                        child: Image.network('https://picsum.photos/250?image=9', width: 266, height: 170, fit: BoxFit.fill,)
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 16, top: 20),
-                      child: Text('Hilltop Valley Golf Club ', style: TextStyle(fontSize: 15, fontFamily: 'SVN-Gilroy', fontWeight: FontWeight.w700)),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 16, top: 9),
-                      child:  Row(
-                        children: [
-                          Image.asset('assets/images/ic_golf_course.png', width: 14, height: 14,),
-                          const SizedBox(width: 8),
-                          const Text('27 holes', style: TextStyle(color: Color(0xff8A8E9B), fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'SVN-Gilroy')),
-                        ],
+  Widget baseHeaderCategory({required String title, required BuildContext context}){
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
+        children: [
+          Text(title, style: const TextStyle(color: Color(0xff414955), fontSize: 18, fontWeight: FontWeight.w700, fontFamily: 'SVN-Gilroy')),
+          const Spacer(),
+          TextButton(
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const CategoryDetailScreen()));
+            },
+            child: Row(
+              children: const [
+                Text('View All', style: TextStyle(color: Color(0xff2DBA63), fontSize: 14, fontWeight: FontWeight.w600, fontFamily: 'SVN-Gilroy')),
+                SizedBox(width: 3),
+                Icon(Icons.arrow_forward_ios_rounded, size: 14, color: Color(0xff2DBA63)),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget baseListCategory(){
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: SizedBox(
+        height: 266,
+        child: ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            scrollDirection: Axis.horizontal,
+            shrinkWrap: true,
+            itemCount: 3,
+            itemBuilder: (BuildContext context, int index){
+              return GestureDetector(
+                onTap: () => {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const CoursesDetailScreen()))
+                },
+                child: Container(
+                  height: 224,
+                  width: 266,
+                  margin: const EdgeInsets.only(right: 16),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: const Color(0xffEEF5FF),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ClipRRect(
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
+                          ),
+                          child: Image.network('https://picsum.photos/250?image=9', width: 266, height: 170, fit: BoxFit.fill,)
                       ),
-                    ),
-                  ],
+                      const Padding(
+                        padding: EdgeInsets.only(left: 16, top: 20),
+                        child: Text('Hilltop Valley Golf Club ', style: TextStyle(fontSize: 15, fontFamily: 'SVN-Gilroy', fontWeight: FontWeight.w700)),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16, top: 9),
+                        child:  Row(
+                          children: [
+                            Image.asset('assets/images/ic_golf_course.png', width: 14, height: 14,),
+                            const SizedBox(width: 8),
+                            const Text('27 holes', style: TextStyle(color: Color(0xff8A8E9B), fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'SVN-Gilroy')),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            );
-          }),
-    ),
-  );
+              );
+            }),
+      ),
+    );
+  }
 }

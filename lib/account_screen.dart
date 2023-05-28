@@ -113,7 +113,7 @@ class _AccountScreenState extends State<AccountScreen> {
            Expanded(
                flex: 9,
                child: SingleChildScrollView(
-                 physics: const NeverScrollableScrollPhysics(),
+                 physics: const BouncingScrollPhysics(),
                  child: Padding(
                    padding: const EdgeInsets.only(left: 24, right: 24, top: 70),
                    child: Center(
@@ -145,48 +145,50 @@ class _AccountScreenState extends State<AccountScreen> {
        )
      );
   }
-}
 
-Widget baseEditProfile({required TextEditingController textEditingController}){
-  return TextField(
-    controller: textEditingController,
-    style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16, fontFamily: 'SVN-Gilroy', color: Color(0xff414B5B)),
-    autofocus: false,
-    onChanged: (searchText) {
-      searchText = searchText.toLowerCase();
-    },
-    decoration: InputDecoration(
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(25.0),
-          borderSide: const BorderSide(color: Color(0xffD4D9E1)),
-        ),
-        focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Color(0xff2DBA63)),
-            borderRadius: BorderRadius.circular(25.0)
-        )
-    ),
-  );
-}
-
-Widget selectButton({required String title, required bool isSelected, required VoidCallback onTap}) {
-  return GestureDetector(
-    onTap: onTap,
-    child: Row(
-      children: [
-        Container(
-          height: 18,
-          width: 18,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: isSelected ? Border.all(width: 6, color: const Color(0xFF2DBA63),) : Border.all(width: 1, color: const Color(0xffD9D9D9))
+  Widget baseEditProfile({required TextEditingController textEditingController}){
+    return TextField(
+      controller: textEditingController,
+      style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16, fontFamily: 'SVN-Gilroy', color: Color(0xff414B5B)),
+      autofocus: false,
+      onChanged: (searchText) {
+        searchText = searchText.toLowerCase();
+      },
+      decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(25.0),
+            borderSide: const BorderSide(color: Color(0xffD4D9E1)),
           ),
-        ),
-        const SizedBox(width: 8),
-        Text(title, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Color(0xFF414955), fontFamily: 'SVN-Gilroy'))
-      ],
-    ),
-  );
+          focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: Color(0xff2DBA63)),
+              borderRadius: BorderRadius.circular(25.0)
+          )
+      ),
+    );
+  }
+
+  Widget selectButton({required String title, required bool isSelected, required VoidCallback onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Row(
+        children: [
+          Container(
+            height: 18,
+            width: 18,
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: isSelected ? Border.all(width: 6, color: const Color(0xFF2DBA63),) : Border.all(width: 1, color: const Color(0xffD9D9D9))
+            ),
+          ),
+          const SizedBox(width: 8),
+          Text(title, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Color(0xFF414955), fontFamily: 'SVN-Gilroy'))
+        ],
+      ),
+    );
+  }
 }
+
+
 
 
 
