@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
-import 'package:screen_main/table_score.dart';
+import 'package:screen_main/table_score_screen.dart';
 import 'account_screen.dart';
 import 'category_detail_screen.dart';
 import 'courses_detail_screen.dart';
@@ -188,7 +188,7 @@ class _MainScreenState extends State<MainScreen> {
           appBar: appBar,
           body: RefreshIndicator(
             onRefresh: () async{
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const TableScore()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const TableScoreScreen()));
             },
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
