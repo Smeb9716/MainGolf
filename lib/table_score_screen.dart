@@ -11,7 +11,6 @@ class TableScoreScreen extends StatefulWidget{
 
 class _TableScoreScreen extends State<TableScoreScreen> {
 
-
   @override
   Widget build(BuildContext context) {
     final appBar = AppBar(
@@ -358,7 +357,6 @@ class _TableScoreScreen extends State<TableScoreScreen> {
         const SizedBox(height: 12),
         const Text('Fairway Hit', style: TextStyle(fontFamily: 'SVN-Gilroy', fontWeight: FontWeight.w500, fontSize: 14, color: Color(0xff414955))),
         const SizedBox(height: 8),
-
         // Horizontal Bar Chart stacked in one bar chart
         ClipRRect(
           borderRadius: BorderRadius.circular(30),
@@ -385,6 +383,15 @@ class _TableScoreScreen extends State<TableScoreScreen> {
             ],
           ),
         ),
+        const SizedBox(height: 16),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            baseRate(colorFairwayHit: 0xff65EF9C, currentFairwayHit: 5, totalFairwayHit: 20.0, positionFairwayHit: 'Left'),
+            baseRate(colorFairwayHit: 0xff65C2F6, currentFairwayHit: 10, totalFairwayHit: 20.0, positionFairwayHit: 'Fairway'),
+            baseRate(colorFairwayHit: 0xffFD7E7E, currentFairwayHit: 5, totalFairwayHit: 20.0, positionFairwayHit: 'Right')
+          ],
+        )
       ],
     );
 
@@ -472,6 +479,37 @@ class _TableScoreScreen extends State<TableScoreScreen> {
               : (isSize == true ? Text(content, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500, fontFamily: 'SVN-Gilroy', color: Color(0xff414955)), textAlign: TextAlign.center)
               : Text(content, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500, fontFamily: 'SVN-Gilroy', color: Color(0xff414955)), textAlign: TextAlign.center)
           )
+      ),
+    );
+  }
+
+  Widget baseRate({required int colorFairwayHit, required int currentFairwayHit, required double totalFairwayHit, required String positionFairwayHit}){
+    return Expanded(
+      flex: 1,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              SizedBox(
+                width: 15,
+                height: 15,
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                      color: Color(colorFairwayHit)
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8),
+              Text('${currentFairwayHit/totalFairwayHit*100}%', style: const TextStyle(color: Color(0xff414955), fontSize: 12, fontWeight: FontWeight.w700, fontFamily: 'SVN-Gilroy'))
+            ],
+          ),
+          const SizedBox(height: 4),
+            Padding(
+              padding: const EdgeInsets.only(left: 23),
+              child: Text('$positionFairwayHit $currentFairwayHit/${totalFairwayHit.toInt()}', style: const TextStyle(color: Color(0xff414955), fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'SVN-Gilroy'))
+          )
+        ],
       ),
     );
   }
