@@ -75,15 +75,15 @@ class _CoursesDetailScreenState extends State<CoursesDetailScreen> {
     );
     final buttonCancel = Container(
       height: 99,
-      decoration: const BoxDecoration(
-          color: Color(0xffFCFCFC),
-          borderRadius: BorderRadius.only(topRight: Radius.circular(12), topLeft: Radius.circular(12)),
-          boxShadow: [
-            BoxShadow(
-              color: Color(0xff555555),
-              blurRadius: 1,
-            )]
-      ),
+      // decoration: const BoxDecoration(
+      //     color: Color(0xffFCFCFC),
+      //     borderRadius: BorderRadius.only(topRight: Radius.circular(12), topLeft: Radius.circular(12)),
+      //     boxShadow: [
+      //       BoxShadow(
+      //         color: Color(0xff555555),
+      //         blurRadius: 1,
+      //       )]
+      // ),
       child: GestureDetector(
         onTap: (){
           Navigator.pop(context);
@@ -283,7 +283,32 @@ class _CoursesDetailScreenState extends State<CoursesDetailScreen> {
                   ],
                 ),
                 const Spacer(),
-                Image.asset('assets/images/ic_more.png', height: 12)
+                GestureDetector(
+                    onTap: (){
+                      showModalBottomSheet(
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
+                          ),
+                          backgroundColor: Colors.white,
+                          context: context,
+                          builder: (context) {
+                            return SizedBox(
+                              height: 165,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const SizedBox(height: 29),
+                                  const Center(child: Text('Delete', style: TextStyle(color: Color(0xff414955), fontSize: 16, fontWeight: FontWeight.w500, fontFamily: 'SVN-Gilroy'))),
+                                  const Spacer(),
+                                  buttonCancel
+                                ],
+                              ),
+                            );
+                          });
+                    },
+                    child: Image.asset('assets/images/ic_more.png', height: 18)
+                )
               ],
             ),
           ),
