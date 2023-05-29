@@ -1,28 +1,20 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:screen_main/add_player_screen.dart';
 
-class CoursesDetailScreen extends StatefulWidget {
-  const CoursesDetailScreen({Key? key}) : super(key: key);
+class AddPlayerScreen extends StatefulWidget{
+  const AddPlayerScreen({super.key});
 
   @override
-  State<CoursesDetailScreen> createState() => _CoursesDetailScreenState();
+  State<AddPlayerScreen> createState() => _AddPlayerScreenState();
+
 }
 
-class _CoursesDetailScreenState extends State<CoursesDetailScreen> {
-  List<String> listButtonOut = ['A', 'B', 'C', 'D', 'E', 'F'];
-  List<String> listButtonIn = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
-  int outSelected = 0;
-  int inSelected = 0;
-
-  int formatPlayIndex = 0;
+class _AddPlayerScreenState extends State<AddPlayerScreen> {
 
   List<User> listUserData = [
     User('Nguyen Van A', 'assets/images/avatar.png', UserStatus.red, 10),
     User('Nguyen Van B', 'assets/images/avatar.png', UserStatus.blue, 15),
     User('Nguyen Van C', 'assets/images/avatar.png', UserStatus.orange, 12),
   ];
-
   @override
   Widget build(BuildContext context) {
     final appBar = AppBar(
@@ -34,15 +26,13 @@ class _CoursesDetailScreenState extends State<CoursesDetailScreen> {
         child: IconButton(
           icon: Image.asset('assets/images/ic_back.png'),
           onPressed: (){
-            if (kDebugMode) {
               Navigator.pop(context);
-            }
           },
         ),
       ),
       leadingWidth: 45,
     );
-    final buttonStartRound = Container(
+    final buttonDone = Container(
       decoration: const BoxDecoration(
           color: Color(0xffFCFCFC),
           borderRadius: BorderRadius.only(topRight: Radius.circular(12), topLeft: Radius.circular(12)),
@@ -67,7 +57,7 @@ class _CoursesDetailScreenState extends State<CoursesDetailScreen> {
                   borderRadius: BorderRadius.circular(25)
               ),
               child: const Center(
-                  child: Text('Start Round', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600, fontFamily: 'SVN-Gilroy'))
+                  child: Text('Done', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600, fontFamily: 'SVN-Gilroy'))
               ),
             ),
           ),
@@ -111,73 +101,7 @@ class _CoursesDetailScreenState extends State<CoursesDetailScreen> {
         ),
       ),
     );
-    const roundSettingTitle = Text('Round Settings', style: TextStyle(color: Color(0xff414955), fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'SVN-Gilroy'));
-    final outGroupButton = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children:  [
-        const Text('OUT', style: TextStyle(fontWeight: FontWeight.w600, fontFamily: 'SVN-Gilroy', fontSize: 14, color: Color(0xFF2DBA63)),),
-        const SizedBox(height: 8),
-        SizedBox(
-          height: 28,
-          child: ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              itemCount: listButtonOut.length,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  width: 80,
-                  margin: const EdgeInsets.only(right: 8),
-                  child: customButton(
-                      title: listButtonOut[index],
-                      isSelected: outSelected == index,
-                      onTap: () {
-                        outSelected = index;
-                        setState(() {});
-                      }),
-                );
-              }
-          ),
-        )
-      ],
-    );
-    final inGroupButton = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children:  [
-        const Text('IN', style: TextStyle(fontWeight: FontWeight.w600, fontFamily: 'SVN-Gilroy', fontSize: 14, color: Color(0xFF2DBA63)),),
-        const SizedBox(height: 8),
-        SizedBox(
-          height: 28,
-          child: ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              itemCount: listButtonIn.length,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  width: 80,
-                  margin: const EdgeInsets.only(right: 8),
-                  child: customButton(
-                      title: listButtonIn[index],
-                      isSelected: inSelected == index,
-                      onTap: () {
-                        inSelected = index;
-                        setState(() {});
-                      }),
-                );
-              }
-          ),
-        )
-      ],
-    );
-    final roundSettingGroupTitle = Row(
-      children:  [
-        const Text('Round Settings', style: TextStyle(color: Color(0xff414955), fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'SVN-Gilroy')),
-        const Spacer(),
-        GestureDetector(
-          onTap: (){},
-          child: const Text('Starting Tee', style: TextStyle(fontWeight: FontWeight.w600, fontFamily: 'SVN-Gilroy', fontSize: 14, color: Color(0xFF2DBA63)))
-        ),
-      ],
-    );
+    const textPlayer = Text('Players', style: TextStyle(color: Color(0xff414955), fontWeight: FontWeight.w700, fontSize: 18, fontFamily: 'SVN-Gilroy'));
     final listUser = ListView.builder(
       itemCount: listUserData.length,
       shrinkWrap: true,
@@ -316,57 +240,119 @@ class _CoursesDetailScreenState extends State<CoursesDetailScreen> {
         );
       },
     );
-    final addPlayerButton = GestureDetector(
-        onTap: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const AddPlayerScreen()));
-        },
-        child: Center(
-          child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              border: Border.all(color: const Color(0xFF2DBA63), width: 1)),
+    final groupListFriends = Row(
+      children: [
+        const Text('List Friends', style: TextStyle(color: Color(0xff414955), fontWeight: FontWeight.w700, fontSize: 18, fontFamily: 'SVN-Gilroy')),
+        const Spacer(),
+        Container(
+          height: 32,
+          width: 125,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            border: Border.all(
+              color: const Color(0xff2DBA63),
+              width: 1
+            )
+          ),
+          child: GestureDetector(
+            onTap: (){},
             child: Row(
-              mainAxisSize: MainAxisSize.min,
               children: [
+                const SizedBox(width: 10),
                 Image.asset('assets/images/ic_add_player.png', color: const Color(0xFF2DBA63), height: 20, width: 20),
-                const SizedBox(width: 4),
-                const Text('Add Player', style: TextStyle(color: Color(0xFF2DBA63), fontSize: 14, fontWeight: FontWeight.w600)),
+                const SizedBox(width: 10),
+                const Text('Add Guest', style: TextStyle(color: Color(0xFF2DBA63), fontWeight: FontWeight.w600, fontSize: 14, fontFamily: 'SVN-Gilroy')),
               ],
             ),
           ),
-        ),
-      );
-    const formatOfPlay = Text('Format of play', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'SVN-Gilroy', color: Color(0xff414955)));
-    final groupSelectBox = Row(
-      children: [
-        Expanded(
-            flex: 2,
-            child: selectButton(
-                onTap: () {
-                  formatPlayIndex = 0;
-                  setState(() {});
-                },
-                isSelected: formatPlayIndex == 0,
-                title: 'Stroke-Play')),
-        Expanded(
-          flex: 3,
-          child: selectButton(
-              onTap: () {
-                formatPlayIndex = 1;
-                setState(() {});
-              },
-              isSelected: formatPlayIndex == 1,
-              title: 'Match-Play'),
-        ),
+        )
       ],
     );
-     return Scaffold(
+    final searchFriend = SizedBox(
+      height: 36,
+      child: TextField(
+        autofocus: false,
+        onChanged: (searchText) {
+          searchText = searchText.toLowerCase();
+        },
+        decoration: InputDecoration(
+            contentPadding: const EdgeInsets.all(7.0),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5.0),
+              borderSide: const BorderSide(color: Color(0xffD4D9E1)),
+            ),
+            prefixIcon: const Icon(Icons.search, size: 30, color: Color(0xff414955),),
+            hintText: 'Search friend',
+            hintStyle: const TextStyle(color: Color(0xff8A8E9B), fontWeight: FontWeight.w500, fontSize: 15, fontFamily: 'SVN-Gilroy'),
+            focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Color(0xff2DBA63)),
+                borderRadius: BorderRadius.circular(5.0)
+            )
+        ),
+      ),
+    );
+    final listFriend = ListView.builder(
+        itemCount: 6,
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (BuildContext context, int index){
+          return Container(
+            padding: const EdgeInsets.symmetric(vertical: 15),
+            child: Row(
+              children: [
+                Stack(
+                  children: [
+                    Container(
+                      height: 40,
+                      width: 40,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/avatar.png'),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 0,
+                      right: 0,
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: 15,
+                        width: 15,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.blue,
+                        ),
+                        child: const Text('12', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400, color: Colors.white)),
+                      ),
+                    )
+                  ],
+                ),
+                const SizedBox(width: 8),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text('Hoang Van Giang', style: TextStyle(fontSize: 14, color: Color(0xff414955), fontWeight: FontWeight.w600, fontFamily: 'SVN-Gilroy')),
+                    Text('ID: 13124', style: TextStyle(fontSize: 14, color: Color(0xff8A8E9B), fontWeight: FontWeight.w400, fontFamily: 'SVN-Gilroy'))
+                  ],
+                ),
+                const Spacer(),
+                GestureDetector(
+                  onTap: (){},
+                  child: Image.asset('assets/images/ic_add_friend.png', height: 20, width: 20),
+                )
+              ],
+            ),
+          );
+        }
+    );
+
+    return Scaffold(
        resizeToAvoidBottomInset: false,
        appBar: appBar,
        body: Column(
          crossAxisAlignment: CrossAxisAlignment.start,
-         children:  [
+         children: [
            Expanded(
                flex: 9,
                child: SingleChildScrollView(
@@ -377,23 +363,17 @@ class _CoursesDetailScreenState extends State<CoursesDetailScreen> {
                      crossAxisAlignment: CrossAxisAlignment.start,
                      children: [
                        const SizedBox(height: 24),
-                       roundSettingTitle,
-                       const SizedBox(height: 16),
-                       outGroupButton,
+                       textPlayer,
                        const SizedBox(height: 12),
-                       inGroupButton,
-                       const SizedBox(height: 40),
-                       roundSettingGroupTitle,
-                       const SizedBox(height: 20),
                        listUser,
-                       const SizedBox(height: 12),
-                       Divider(color: const Color(0xFFD4D9E1).withOpacity(0.7), height: 1, thickness: 1),
-                       const SizedBox(height: 20),
-                       addPlayerButton,
-                       const SizedBox(height: 35),
-                       formatOfPlay,
+                       const SizedBox(height: 23.5),
+                       groupListFriends,
                        const SizedBox(height: 16),
-                       groupSelectBox
+                       searchFriend,
+                       const SizedBox(height: 22),
+                       listFriend
+
+
                      ],
                    ),
                  ),
@@ -401,7 +381,7 @@ class _CoursesDetailScreenState extends State<CoursesDetailScreen> {
            ),
            Expanded(
                flex: 1,
-               child: buttonStartRound
+               child: buttonDone
            )
          ],
        ),
@@ -437,62 +417,6 @@ class _CoursesDetailScreenState extends State<CoursesDetailScreen> {
     );
   }
 
-  Widget customButton({required String title, required bool isSelected, required VoidCallback onTap}) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Center(
-        child: Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              color:
-              isSelected ? const Color(0xFF2DBA63) : const Color(0xFFB0EFC8)),
-          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 32),
-          child: Text(title,
-            style: TextStyle(
-                color: isSelected
-                    ? const Color(0xFFFFFFFF)
-                    : const Color(0xFF2DBA63),
-                fontWeight: FontWeight.w700,
-                fontSize: 14),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget selectButton({required String title, required bool isSelected, required VoidCallback onTap}) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Row(
-        children: [
-          Container(
-            height: 18,
-            width: 18,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: isSelected
-                  ? Border.all(
-                width: 6,
-                color: const Color(0xFF2DBA63),
-              )
-                  : Border.all(width: 1, color: const Color(0xffD9D9D9)),
-            ),
-          ),
-          const SizedBox(
-            width: 8,
-          ),
-          Text(
-            title,
-            style: const TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w500,
-                color: Color(0xFF414955),
-                fontFamily: 'SVN-Gilroy'),
-          )
-        ],
-      ),
-    );
-  }
 }
 
 class User {
