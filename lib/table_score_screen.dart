@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:screen_main/table_score_detail_screen.dart';
 
 
 class TableScoreScreen extends StatefulWidget{
   const TableScoreScreen({super.key});
 
   @override
-  State<TableScoreScreen> createState() => _TableScoreScreen();
+  State<TableScoreScreen> createState() => _TableScoreScreenState();
 
 }
 
-class _TableScoreScreen extends State<TableScoreScreen> {
+class _TableScoreScreenState extends State<TableScoreScreen> {
 
   @override
   Widget build(BuildContext context) {
@@ -147,6 +148,7 @@ class _TableScoreScreen extends State<TableScoreScreen> {
         const Spacer(),
         GestureDetector(
             onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const TableScoreDetailScreen()));
             },
             child: Image.asset('assets/images/ic_rotate_score.png', height: 26, width: 26)
         )
