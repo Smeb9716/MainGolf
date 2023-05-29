@@ -15,6 +15,8 @@ class _AddPlayerScreenState extends State<AddPlayerScreen> {
     User('Nguyen Van B', 'assets/images/avatar.png', UserStatus.blue, 15),
     User('Nguyen Van C', 'assets/images/avatar.png', UserStatus.orange, 12),
   ];
+
+  int indexSex = 0;
   @override
   Widget build(BuildContext context) {
     final appBar = AppBar(
@@ -240,6 +242,87 @@ class _AddPlayerScreenState extends State<AddPlayerScreen> {
         );
       },
     );
+    final buttonCreateAndCancel = Container(
+      height: 80,
+      padding: const EdgeInsets.symmetric(horizontal: 24),
+      decoration: const BoxDecoration(
+          color: Color(0xffFCFCFC),
+          borderRadius: BorderRadius.only(topRight: Radius.circular(12), topLeft: Radius.circular(12)),
+          // boxShadow: [
+          //   BoxShadow(
+          //     color: Color(0xff555555),
+          //     blurRadius: 1,
+          //   )]
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          GestureDetector(
+            onTap: (){},
+            child: Container(
+              height: 40,
+              width: 160,
+              decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [Color(0xff3DE178), Color(0xff2DBA63)],
+                  ),
+                  borderRadius: BorderRadius.circular(25)
+              ),
+              child: const Center(
+                child: Text('Add', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600, fontFamily: 'SVN-Gilroy')),
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: (){},
+            child: Container(
+              height: 40,
+              width: 160,
+              decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [Color(0xffFCFCFC), Color(0xffFCFCFC)],
+                  ),
+                  borderRadius: BorderRadius.circular(25),
+                  border: Border.all(color: const Color(0xff2DBA63))
+              ),
+              child: const Center(
+                child: Text('Cancel', style: TextStyle(color: Color(0xff2DBA63), fontSize: 18, fontWeight: FontWeight.w600, fontFamily: 'SVN-Gilroy')),
+              ),
+            ),
+          ),
+
+        ],
+      ),
+    );
+    final groupSelectSex = Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24),
+      child: Row(
+          children: [
+            Expanded(
+                flex: 1,
+                child: selectButton(
+                    onTap: () {
+                      indexSex = 0;
+                      setState(() {});
+                    },
+                    isSelected: indexSex == 0,
+                    title: 'Male')),
+            Expanded(
+                flex: 3,
+                child: selectButton(
+                    onTap: () {
+                      indexSex = 1;
+                      setState(() {});
+                    },
+                    isSelected: indexSex == 1,
+                    title: 'Female'))
+          ]
+      ),
+    );
     final groupListFriends = Row(
       children: [
         const Text('List Friends', style: TextStyle(color: Color(0xff414955), fontWeight: FontWeight.w700, fontSize: 18, fontFamily: 'SVN-Gilroy')),
@@ -255,7 +338,57 @@ class _AddPlayerScreenState extends State<AddPlayerScreen> {
             )
           ),
           child: GestureDetector(
-            onTap: (){},
+            onTap: (){
+              showModalBottomSheet(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
+                  ),
+                  backgroundColor: Colors.white,
+                  context: context,
+                  builder: (context) {
+                    return SizedBox(
+                      height: 480,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            height: 48,
+                            padding: const EdgeInsets.symmetric(horizontal: 24),
+                            decoration: const BoxDecoration(
+                               borderRadius: BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
+                               color: Color(0xffEEEEEF)
+                             ),
+                           child: Row(
+                             children:  [
+                               const Text('Add Guest', style: TextStyle(color: Color(0xff414B5B), fontWeight: FontWeight.w700, fontSize: 18, fontFamily: 'SVN-Gilroy')),
+                               const Spacer(),
+                               GestureDetector(
+                                 onTap: (){
+                                   Navigator.pop(context);
+                                 },
+                                 child: const Icon(Icons.close_sharp),
+                               )
+                             ],
+                           ),
+                          ),
+                          const SizedBox(height: 24),
+                          baseEditGuest(hintTitle: 'Guest name*'),
+                          const SizedBox(height: 16),
+                          baseEditGuest(hintTitle: 'Handicap index*'),
+                          const SizedBox(height: 18),
+                          groupSelectSex,
+                          const SizedBox(height: 18),
+                          const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 24),
+                              child: Text('Starting Tee', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Color(0xff414B5B), fontFamily: 'SVN-Gilroy'))),
+                          const Spacer(),
+                          buttonCreateAndCancel
+                        ],
+                      ),
+                    );
+                  });
+            },
             child: Row(
               children: [
                 const SizedBox(width: 10),
@@ -348,7 +481,6 @@ class _AddPlayerScreenState extends State<AddPlayerScreen> {
     );
 
     return Scaffold(
-       resizeToAvoidBottomInset: false,
        appBar: appBar,
        body: Column(
          crossAxisAlignment: CrossAxisAlignment.start,
@@ -417,6 +549,52 @@ class _AddPlayerScreenState extends State<AddPlayerScreen> {
     );
   }
 
+  Widget baseEditGuest({required String hintTitle}){
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24),
+      child: TextField(
+        controller: TextEditingController(),
+        style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16, fontFamily: 'SVN-Gilroy', color: Color(0xff414B5B)),
+        autofocus: false,
+        onChanged: (searchText) {
+          searchText = searchText.toLowerCase();
+        },
+        decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(25.0),
+              borderSide: const BorderSide(color: Color(0xffD4D9E1)),
+            ),
+            focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Color(0xff2DBA63)),
+                borderRadius: BorderRadius.circular(25.0)
+            ),
+          hintText: hintTitle,
+          hintStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16, fontFamily: 'SVN-Gilroy', color: Color(0xff8A8E9B)),
+        ),
+
+      ),
+    );
+  }
+
+  Widget selectButton({required String title, required bool isSelected, required VoidCallback onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Row(
+        children: [
+          Container(
+            height: 18,
+            width: 18,
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: isSelected ? Border.all(width: 6, color: const Color(0xFF2DBA63),) : Border.all(width: 1, color: const Color(0xffD9D9D9))
+            ),
+          ),
+          const SizedBox(width: 8),
+          Text(title, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Color(0xFF414955), fontFamily: 'SVN-Gilroy'))
+        ],
+      ),
+    );
+  }
 }
 
 class User {
